@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A&amp;C Quality Air | HVAC Installation, Repair and Maintenance in New Jersey</title>
+<style>
+/* BLOCK 1: Design tokens (see tokens.json) */
+:root {
+  --color-primaty: #243DAE;
+  --c-red: #E4002B;
+  --c-blue-band: #0058A3;
+  --c-navy-ink: #0B2744;
+  --c-ice: #F0F8FF;
+  --c-grey-bg: #F4F4F4;
+  --c-white: #FFFFFF;
+  --c-text: #231F20;
+  --c-placeholder: #5D5D5D;
+  --c-footer-bg: #231F20;
+  --font-sans: Roboto, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --fs-h1: 48px;
+  --fs-h2: 36px;
+  --fs-body: 14px;
+  --fs-small: 12px;
+  --space-unit: 4px;
+  --container-max: 1188px;
+  --radius-input: 3px;
+  --radius-btn: 40px;
+  --radius-card: 8px;
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* BLOCK 2: Load-bearing rules */
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; font-family: var(--font-sans); font-size: var(--fs-body); color: var(--c-text); background: var(--c-white); line-height: 1.45; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+.container { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 24px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-weight: 700; font-size: 13px; text-decoration: none; border-radius: var(--radius-btn); padding: 10px 22px; cursor: pointer; border: 1px solid var(--c-red); }
+.btn-primary { background: var(--c-red); color: #fff; }
+.btn-secondary { background: transparent; color: var(--c-text); }
+.btn-white { background: #fff; color: var(--c-text); border-color: #fff; }
+.field { height: 40px; width: 100%; padding: 0 10px; background: #fff; color: #000; border: 1px solid var(--c-navy-ink); border-radius: var(--radius-input); font: inherit; font-size: 13px; }
+.field::placeholder { color: var(--c-placeholder); }
+.ph-img { background: linear-gradient(135deg, #cfd8e8, #9fb2d4); display: flex; align-items: center; justify-content: center; color: #34466e; font-weight: 700; text-align: center; padding: 16px; }
+.icon { width: 36px; height: 36px; stroke: var(--c-blue-band); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.icon-sm { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* BLOCK 3: Components, in page order */
+/* Promo bar */
+.promo { background: var(--c-blue-band); color: #fff; text-align: center; font-weight: 700; font-size: 12px; padding: 7px 12px; }
+/* Nav (light, solid, logo left) */
+.nav { background: #fff; }
+.nav .container { display: flex; align-items: center; gap: 28px; min-height: 76px; }
+.nav .logo { font-weight: 900; font-size: 22px; letter-spacing: 0.02em; color: var(--c-navy-ink); text-decoration: none; line-height: 1; }
+.nav .logo small { display: block; font-size: 9px; font-weight: 500; letter-spacing: 0.08em; margin-top: 4px; }
+.nav ul.links { display: flex; gap: 22px; margin-left: 32px; font-weight: 700; font-size: 14px; }
+.nav ul.links a { text-decoration: none; }
+.nav .cta { margin-left: auto; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.nav .cta .note { flex-basis: 100%; text-align: right; font-size: 11px; color: var(--c-placeholder); }
+/* Hero (blue left, photo right, text left-aligned) */
+.hero { background: var(--color-primaty); color: #fff; position: relative; }
+.hero .grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 420px; }
+.hero .copy { padding: 48px 24px 88px max(24px, calc((100vw - var(--container-max)) / 2 + 24px)); }
+.hero h1 { font-size: var(--fs-h1); line-height: 1.12; font-weight: 700; max-width: 470px; }
+.hero ul.ticks { margin: 24px 0; display: grid; gap: 12px; font-size: 15px; }
+.hero ul.ticks li { display: flex; gap: 12px; align-items: center; }
+.hero .call-line { margin-bottom: 14px; font-size: 15px; }
+.hero .photo { min-height: 420px; }
+/* Request service card overlapping hero and blue band */
+.request-wrap { background: var(--c-blue-band); position: relative; display: flow-root; }
+.request { background: #fff; border-radius: var(--radius-card); box-shadow: var(--shadow-card); max-width: 960px; margin: -56px auto 0; position: relative; z-index: 2; padding: 28px 40px 32px; text-align: center; }
+.request h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.request p { font-size: 12px; margin-bottom: 18px; }
+.request form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: center; }
+/* Offers (blue band, 3 white cards) */
+.offers { background: var(--c-blue-band); color: #fff; padding: 36px 0 44px; text-align: center; }
+.offers h2 { font-size: 28px; font-weight: 700; }
+.offers .sub { font-weight: 700; margin: 6px 0 28px; }
+.offers .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
+.offer { background: #fff; color: var(--c-text); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 40px 24px 14px; display: flex; flex-direction: column; min-height: 280px; }
+.offer .big { font-size: 44px; font-weight: 700; color: var(--c-red); line-height: 1.05; }
+.offer .what { font-weight: 700; margin: 14px 0; font-size: 15px; }
+.offer .book { color: var(--c-placeholder); margin-top: auto; padding-bottom: 14px; }
+.offer .exp { display: flex; justify-content: space-between; font-size: 12px; color: var(--c-placeholder); border-top: 1px solid #eee; padding-top: 10px; }
+/* Services (white, 4 columns with icons) */
+.services { padding: 52px 0 56px; text-align: center; }
+.services h2 { font-size: var(--fs-h2); font-weight: 700; }
+.services .checks { display: flex; gap: 24px; justify-content: center; font-weight: 700; margin: 16px 0 36px; flex-wrap: wrap; }
+.services .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; text-align: left; }
+.services .col .icon { margin: 0 auto 10px; display: block; }
+.services .col h3 { text-align: center; font-size: 15px; margin-bottom: 14px; }
+.services .col li { list-style: disc; margin-left: 16px; font-size: 13px; color: #444; margin-bottom: 8px; }
+/* Problems (ice-blue, photo left, 2-col text right) */
+.problems { background: var(--c-ice); padding: 56px 0; }
+.problems .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.problems .photo { height: 420px; border-radius: var(--radius-card); }
+.problems h2 { font-size: 30px; font-weight: 700; margin-bottom: 18px; max-width: 420px; }
+.problems .items { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
+.problems .items h3 { font-size: 15px; margin-bottom: 4px; }
+.problems .items p { font-size: 12.5px; color: #444; }
+/* Financing (grey, text left, photo right half) */
+.financing { background: var(--c-grey-bg); position: relative; }
+.financing .grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+.financing .copy { padding: 56px 24px 56px max(24px, calc((100vw - var(--container-max)) / 2 + 24px)); }
+.financing h2 { font-size: 30px; font-weight: 700; margin-bottom: 18px; }
+.financing ul.bul { margin: 14px 0 28px; }
+.financing ul.bul li { list-style: disc; margin-left: 16px; margin-bottom: 6px; }
+/* Guarantee (dark blue, badge left, checklist right) */
+.guarantee { background: var(--color-primaty); color: #fff; padding: 48px 0; }
+.guarantee .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+.guarantee .left { display: flex; gap: 24px; align-items: center; }
+.guarantee .badge { width: 130px; height: 130px; border-radius: 50%; background: #c8962e; color: #3b2a07; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 900; flex: none; }
+.guarantee h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.guarantee .fine { font-size: 11px; opacity: .9; }
+.guarantee ul { display: grid; gap: 14px; font-weight: 700; font-size: 15px; }
+.guarantee ul li { display: flex; gap: 12px; align-items: center; }
+/* Testimonials (white, heading left, 2 white cards right) */
+.reviews { padding: 56px 0; }
+.reviews .grid { display: grid; grid-template-columns: 0.8fr 3fr; gap: 32px; align-items: start; }
+.reviews h2 { font-size: 28px; font-weight: 700; }
+.reviews .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+.review { border: 1px solid #ddd; border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 18px; }
+.stars { color: #F9B900; letter-spacing: 2px; font-size: 16px; }
+.review .stars { margin-bottom: 8px; }
+.rating { margin-top: 14px; display: grid; gap: 4px; }
+.rating .score { font-size: 40px; font-weight: 500; line-height: 1; }
+.rating .count { font-size: 13px; color: var(--c-placeholder); }
+.review p { font-size: 13px; line-height: 1.5; }
+.review .who { font-weight: 700; margin-top: 12px; }
+.review .src { font-size: 11px; color: var(--c-placeholder); }
+/* Service areas (heading + map left, accordion right) */
+.areas { padding: 56px 0 40px; border-top: 1px solid #eee; }
+.areas .grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
+.areas h2 { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+.areas .map { height: 170px; border-radius: var(--radius-card); }
+.areas details { border-bottom: 1px solid #e5e5e5; padding: 16px 0; font-weight: 700; font-size: 15px; }
+.areas summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+.areas summary::after { content: "\2304"; }
+.areas details p { font-weight: 400; margin-top: 8px; color: #444; font-size: 13px; }
+.areas .more { text-align: center; margin-top: 18px; font-weight: 700; text-decoration: underline; }
+/* Final CTA (full-width red band) */
+.final-cta { background: var(--c-red); color: #fff; padding: 22px 0; }
+.final-cta .container { display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.final-cta h2 { font-size: 20px; font-weight: 500; }
+/* Footer (dark, legal text) */
+.footer { background: var(--c-footer-bg); color: #fff; padding: 28px 0 36px; font-size: 11.5px; }
+.footer p { margin-bottom: 14px; }
+.footer .legal { border-top: 1px solid #555; padding-top: 14px; display: grid; gap: 4px; font-size: 10px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .nav ul.links { display: none; }
+  .services .cols { grid-template-columns: repeat(2, 1fr); }
+  .guarantee .grid, .reviews .grid, .areas .grid, .problems .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+  :root { --fs-h1: 32px; --fs-h2: 26px; }
+  .hero .grid, .financing .grid { grid-template-columns: 1fr; }
+  .hero .copy, .financing .copy { padding: 36px 24px; }
+  .hero .photo, .financing .photo { min-height: 240px; }
+  .request { width: auto; max-width: none; margin: -40px 16px 0; padding: 24px 20px; }
+  .nav .logo small { display: none; }
+  .request form, .offers .cards, .services .cols, .problems .items, .reviews .cards { grid-template-columns: 1fr; }
+  .nav .cta .btn-secondary { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="promo"><!-- Replace with: your availability line, e.g. hours or emergency service policy --> YOUR CONTENT HERE: availability line</div>
+
+<header class="nav">
+  <div class="container">
+    <!-- Replace with: client logo from https://citylocal101.com/storage/company/14299/logo/356ab92ffde64f21f46e2f71bef63899.png (download into /public/images first) -->
+    <a class="logo" href="#">A&amp;C QUALITY AIR<small>HEATING &bull; COOLING &bull; NEW JERSEY</small></a>
+    <ul class="links">
+      <li><a href="#deals">Deals</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#financing">Financing</a></li>
+      <li><a href="#guarantee">Guarantee</a></li>
+      <li><a href="#areas">Service Area</a></li>
+    </ul>
+    <div class="cta">
+      <a class="btn btn-secondary" href="#request">Request Service</a>
+      <a class="btn btn-primary" href="tel:+12019888313">Call Now (201) 988-8313</a>
+      <span class="note"><!-- YOUR CONTENT HERE: short line under the phone button --></span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="grid">
+    <div class="copy">
+      <h1>Dependable Cooling and Heating for New Jersey Residents</h1>
+      <ul class="ticks">
+        <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M4 20l8-8M14 4l6 6-3 3-6-6z"/></svg> Installation</li>
+        <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg> Repair</li>
+        <li><svg class="icon-sm" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/></svg> Maintenance</li>
+        <li><svg class="icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13l-1 8 4-2 4 2-1-8"/></svg> Expert care, all year long</li>
+      </ul>
+      <p class="call-line">Call us to schedule your service today</p>
+      <a class="btn btn-primary" href="tel:+12019888313">Call Now (201) 988-8313</a>
+    </div>
+    <!-- Replace with: your own hero photo (technician with homeowner), ~720x420, webp -->
+    <div class="photo ph-img">HERO PHOTO<br>(technician and homeowner)</div>
+  </div>
+</section>
+
+<div class="request-wrap">
+  <section class="request container" id="request" style="background:#fff">
+    <h2>Request Service</h2>
+    <p>Our team will be in touch right away to schedule fast, reliable service tailored to your needs.</p>
+    <form onsubmit="return false">
+      <input class="field" type="text" placeholder="ZIP code" aria-label="ZIP code">
+      <select class="field" aria-label="Service needed">
+        <option>Service Needed</option>
+        <option>Air Conditioner Installation</option>
+        <option>Air Conditioner Repair</option>
+        <option>Furnace Installation</option>
+        <option>Boiler Installation</option>
+        <option>Water Heater Installation</option>
+        <option>HVAC Maintenance</option>
+      </select>
+      <button class="btn btn-primary" type="submit">Step 1 of 3</button>
+    </form>
+  </section>
+  <section class="offers" id="deals" style="padding-top:36px">
+    <div class="container">
+      <h2>Limited Time Offers in New Jersey</h2>
+      <p class="sub">Simply share or mention these offers to your A&amp;C Quality Air team member and save on your service!</p>
+      <div class="cards">
+        <!-- Replace with: real, client-approved offers only. Do not publish placeholder prices. -->
+        <article class="offer"><div class="big">$__ Off</div><div class="what">YOUR OFFER HERE</div><div class="book">Book Now!</div><div class="exp"><span>Expires</span><span>MM/DD/YYYY</span></div></article>
+        <article class="offer"><div class="big">$__</div><div class="what">YOUR OFFER HERE</div><div class="book">Schedule Today!</div><div class="exp"><span>Expires</span><span>MM/DD/YYYY</span></div></article>
+        <article class="offer"><div class="big">Save Up To</div><div class="what">YOUR OFFER HERE</div><div class="book">Book Now!</div><div class="exp"><span>Expires</span><span>MM/DD/YYYY</span></div></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="services" id="services">
+  <div class="container">
+    <h2>Our Available HVAC Services in New Jersey</h2>
+    <div class="checks"><span>&#10003; Installation, repair and maintenance</span><span>&#10003; <!-- YOUR CONTENT HERE: guarantee claim approved by client --> Guaranteed satisfaction</span></div>
+    <div class="cols">
+      <div class="col"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg><h3>A/C Repair &amp; Maintenance</h3><ul><li>Air conditioner repair service</li><li>Inconsistent cooling diagnosed</li><li>Tune-ups for a longer lifespan</li></ul></div>
+      <div class="col"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M12 9v6M9 12h6"/></svg><h3>A/C Installation</h3><ul><li>Replace your aging system</li><li>Air conditioner installation</li><li>Expert installation</li></ul></div>
+      <div class="col"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg><h3>Heater Repair &amp; Maintenance</h3><ul><li>Furnace and boiler service</li><li>Steam boiler repair</li><li>Heating tune-ups</li></ul></div>
+      <div class="col"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><circle cx="12" cy="14" r="3"/></svg><h3>Heater Installation</h3><ul><li>Furnace installation</li><li>Boiler installation service</li><li>Water heater installation and replacement</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="problems">
+  <div class="container grid">
+    <!-- Replace with: your own technician photo, ~600x420 -->
+    <div class="photo ph-img">TECHNICIAN PHOTO</div>
+    <div>
+      <h2>Whatever Your HVAC Problem, We Can Solve It</h2>
+      <div class="items">
+        <!-- Replace with: client-approved copy. Headings below are generic common symptoms. -->
+        <div><h3>Vents Blowing Warm Air</h3><p>YOUR CONTENT HERE</p></div>
+        <div><h3>Aging HVAC Equipment</h3><p>YOUR CONTENT HERE</p></div>
+        <div><h3>Inconsistent Temperature</h3><p>YOUR CONTENT HERE</p></div>
+        <div><h3>Strange Noises or Foul Odors</h3><p>YOUR CONTENT HERE</p></div>
+        <div><h3>High Energy Bills</h3><p>YOUR CONTENT HERE</p></div>
+        <div><h3>Frequent Breakdowns</h3><p>YOUR CONTENT HERE</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="financing" id="financing">
+  <div class="grid">
+    <div class="copy">
+      <h2>Flexible Financing for Your A&amp;C Quality Air HVAC Service</h2>
+      <p><!-- YOUR CONTENT HERE: only describe financing if the client actually offers it --> YOUR CONTENT HERE</p>
+      <ul class="bul"><li>YOUR FINANCING POINT</li><li>YOUR FINANCING POINT</li><li>YOUR FINANCING POINT</li></ul>
+      <a class="btn btn-primary" href="tel:+12019888313">Call Now (201) 988-8313</a>
+    </div>
+    <!-- Replace with: your own lifestyle photo, ~720x480 -->
+    <div class="photo ph-img">LIFESTYLE PHOTO</div>
+  </div>
+</section>
+
+<section class="guarantee" id="guarantee">
+  <div class="container grid">
+    <div class="left">
+      <div class="badge">YOUR<br>BADGE</div>
+      <div>
+        <h2>Our Satisfaction Guarantee.</h2>
+        <p class="fine"><!-- YOUR CONTENT HERE: exact guarantee wording from the client --> YOUR CONTENT HERE</p>
+      </div>
+    </div>
+    <ul>
+      <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Affordable Prices</li>
+      <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Ample Experience</li>
+      <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Guaranteed Satisfaction</li>
+      <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Skilled Workmanship</li>
+      <li><svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg> Local, expert service you can count on</li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="container grid">
+    <div><h2>See why New Jersey customers trust A&amp;C Quality Air</h2>
+    <!-- Rating snapshot from the client's Google Business profile, 5.0 from 33 reviews as of 2026-11-05. Update the count when it changes. -->
+    <div class="rating"><span class="score">5.0</span><span class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="count">33 Google reviews</span></div></div>
+    <div class="cards">
+      <!-- Real Google reviews supplied by the client side, text verbatim. All three are 5-star per the client. Link "Google review" to the client's Google Business profile. -->
+      <article class="review"><div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>Caesar, was so great to work with. He is very knowledgeable , honest, hard worker. He fixed our Central AC unit which was fairly new which was installed by another contractor who didn’t bother to even come and look to fix it.</p><div class="who">Eve St John</div><div class="src">Google review</div></article>
+      <article class="review"><div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>AC Quality Air is the one. My AC unit recently went out, and the level of service I received was absolutely amazing from start to finish. They arrived on time, I will absolutely be using them for all my future HVAC needs because Cesar was the best.</p><div class="who">Andrew Passaro</div><div class="src">Google review</div></article>
+      <article class="review"><div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>The few times I’ve had an emergency, Cesar answered and addressed our issues immediately and either came the same day or the following day. He’s reliable, efficient, explains in detail and doesn’t rush the job. I’ve used other services in the past and have decided to contact A&amp;C quality only moving forward. He’s very knowledgeable and I trust he knows what he’s doing with our very dated machine. He doesn’t push services or unnecessary work. Highly recommend.</p><div class="who">Kelly Lopez</div><div class="src">Google review</div></article>
+    </div>
+  </div>
+</section>
+
+<section class="areas" id="areas">
+  <div class="container grid">
+    <div>
+      <h2>We are proud to serve the following areas:</h2>
+      <!-- Replace with: your own map image of the service area -->
+      <div class="map ph-img">SERVICE AREA MAP</div>
+    </div>
+    <div>
+      <details><summary>Bergen County</summary><p>Ridgewood, Ramsey, Upper Saddle River, East Rutherford, Hasbrouck Heights, Oakland</p></details>
+      <details><summary>Passaic County</summary><p>Clifton, Wayne</p></details>
+      <details><summary>Essex County</summary><p>Verona, West Caldwell, Livingston, North Arlington</p></details>
+      <details><summary>Morris County</summary><p>Chatham, East Hanover</p></details>
+      <!-- Verify county assignments with the client before launch. -->
+      <p class="more">See more</p>
+    </div>
+  </div>
+</section>
+
+<div class="final-cta">
+  <div class="container">
+    <h2>Call Us for All of Your New Jersey HVAC Needs</h2>
+    <a class="btn btn-white" href="tel:+12019888313">Call Now (201) 988-8313</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <!-- Replace with: client-approved offer terms and warranty disclaimers. Do not copy another company's legal text. -->
+    <p>YOUR CONTENT HERE: offer terms, warranty and guarantee disclaimers</p>
+    <div class="legal"><span>&copy; 2026 A&amp;C QUALITY AIR LLC. ALL RIGHTS RESERVED.</span><span>PRIVACY POLICY</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
