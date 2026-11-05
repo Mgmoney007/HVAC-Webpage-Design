@@ -91,10 +91,38 @@
   --ph-from: #cfd8e8; /* scaffold: placeholder image gradient */
   --ph-to: #9fb2d4;
   --ph-text: #34466e;
+
+  /* section rhythm: two tiers, regular and photo/large sections */
+  --section-y: 64px;
+  --section-y-lg: 80px;
+  --measure: 68ch; /* max line length for running text */
+
+  /* interaction (polish pass; tokens.json "motion" is empty, so these are new) */
+  --c-red-hover: color-mix(in srgb, var(--c-red), var(--c-text) 15%);
+  --c-red-active: color-mix(in srgb, var(--c-red), var(--c-text) 28%);
+  --shadow-card-hover: 0 6px 18px rgba(0, 0, 0, 0.18);
+  --shadow-header: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --focus-w: 3px;        /* navy outline */
+  --focus-gap: 2px;      /* white halo between element and outline */
+  --tap-min: 44px;
+  --press-offset: 1px;   /* buttons nudge down when pressed */
+  --disabled-opacity: 0.6;
+  --spinner-w: 2px;
+  --btn-min-h: 40px;     /* preview.png button height on desktop */
+  --dur-fast: 150ms;
+  --dur: 200ms;
+  --dur-slow: 250ms;
+  --dur-reveal: 450ms;
+  --ease: ease;
+  --reveal-rise: 12px;
+  --z-header: 40;
 }
 
 @media (max-width: 1024px) {
   :root {
+    /* touch widths: buttons and fields reach 44px */
+    --btn-min-h: 44px;
+    --field-h: 44px;
     --fs-h1: 40px; /* hero column is half width on tablet; 48px wraps to 5 lines */
     --fs-price: 44px; /* three offer cards are ~230px wide on tablet */
     --problems-photo-h: 320px;
@@ -117,5 +145,7 @@
     --fs-h2: 26px;
     --fs-lead: 15px;
     --hero-min-h: 240px;
+    --section-y: 40px;
+    --section-y-lg: 40px;
   }
 }

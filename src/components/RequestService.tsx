@@ -8,10 +8,10 @@ const empty: Values = { zip: '', service: '', firstName: '', lastName: '', phone
 
 /** Native input settings per field; the browser does the required/format checks. */
 const inputProps: Record<Exclude<RequestField, 'service'>, React.InputHTMLAttributes<HTMLInputElement>> = {
-  zip: { type: 'text', inputMode: 'numeric', autoComplete: 'postal-code', pattern: '\\d{5}', maxLength: 5, title: 'Enter a 5-digit ZIP code' },
+  zip: { type: 'text', inputMode: 'numeric', autoComplete: 'postal-code', pattern: '\\d{5}', maxLength: 5 },
   firstName: { type: 'text', autoComplete: 'given-name' },
   lastName: { type: 'text', autoComplete: 'family-name' },
-  phone: { type: 'tel', autoComplete: 'tel', pattern: '[\\d\\s()+.\\-]{10,}', title: 'Enter a phone number with area code' },
+  phone: { type: 'tel', autoComplete: 'tel', pattern: '[\\d\\s\\(\\)\\+\\.\\-]{10,}' /* escaped for the v-flag regex browsers use */ },
   email: { type: 'email', autoComplete: 'email' },
 }
 
@@ -24,6 +24,9 @@ export function RequestService() {
   const [values, setValues] = useState<Values>(empty)
   const [status, setStatus] = useState<Status>('idle')
   const firstField = useRef<HTMLInputElement | HTMLSelectElement | null>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+  // Fields that failed validation on the last submit attempt (re-checked as the user types)
+  const [invalid, setInvalid] = useState<Partial<Record<RequestField, boolean>>>({})
   const moved = useRef(false)
 
   const current = request.steps[step]
@@ -34,11 +37,33 @@ export function RequestService() {
     if (moved.current) firstField.current?.focus()
   }, [step])
 
-  const set = (f: RequestField) => (e: { target: { value: string } }) =>
-    setValues((v) => ({ ...v, [f]: e.target.value }))
+  const set = (f: RequestField) => (e: { target: HTMLInputElement | HTMLSelectElement }) => {
+    const el = e.target
+    setValues((v) => ({ ...v, [f]: el.value }))
+    // once a message is showing, clear it as soon as the value becomes valid
+    if (invalid[f]) setInvalid((m) => ({ ...m, [f]: !el.validity.valid }))
+  }
+
+  /** Uses the browser's constraint checks (required, pattern, type) but shows our own messages. */
+  function validate() {
+    const form = formRef.current
+    if (!form) return true
+    const next: Partial<Record<RequestField, boolean>> = {}
+    let first: HTMLElement | null = null
+    for (const f of current.fields) {
+      const el = form.elements.namedItem(f) as HTMLInputElement | HTMLSelectElement | null
+      const bad = !!el && !el.validity.valid
+      next[f] = bad
+      if (bad && !first) first = el
+    }
+    setInvalid(next)
+    first?.focus()
+    return !first
+  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
+    if (!validate()) return
     if (!isLast) {
       moved.current = true
       setStep(step + 1)
@@ -64,13 +89,16 @@ export function RequestService() {
   function back() {
     moved.current = true
     setStatus('idle')
+    setInvalid({})
     setStep(step - 1)
   }
+
+  const sending = status === 'sending'
 
   return (
     <section
       id={request.id}
-      className="relative z-10 mx-auto -mt-(--request-overlap) max-w-(--request-max) rounded-box bg-paper px-15 pt-6 pb-11 text-center shadow-box max-md:mx-4 max-md:px-5 max-md:py-6 md:max-lg:mx-6"
+      className="on-light relative z-10 mx-auto -mt-(--request-overlap) max-w-(--request-max) rounded-box bg-paper px-15 pt-6 pb-11 text-center shadow-box max-md:mx-4 max-md:px-5 max-md:py-6 md:max-lg:mx-6"
     >
       <h2 className="m-0 mb-2 text-h2 leading-tight font-bold">{request.title}</h2>
       <p className="m-0 mb-5 text-md">{request.intro}</p>
@@ -81,50 +109,59 @@ export function RequestService() {
         </p>
       ) : (
         <form
-          className="grid items-center gap-3.5 md:gap-5.5 md:grid-cols-[1fr_1fr_auto]"
+          ref={formRef}
+          noValidate
+          className="grid items-start gap-3.5 md:gap-5.5 md:grid-cols-[1fr_1fr_auto]"
           onSubmit={onSubmit}
           aria-label={`${request.title}, ${current.button}`}
+          aria-busy={sending}
         >
           {current.fields.map((f, i) => {
             const ref = i === 0 ? (el: HTMLInputElement | HTMLSelectElement | null) => {
                     firstField.current = el
                   }
                 : undefined
-            return f === 'service' ? (
-              <select
-                key={f}
-                ref={ref}
-                name={f}
-                required
-                className="field"
-                aria-label={request.labels[f]}
-                value={values[f]}
-                onChange={set(f)}
-              >
-                <option value="" disabled>
-                  {request.servicePlaceholder}
-                </option>
-                {request.services.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
-            ) : (
-              <input
-                key={f}
-                ref={ref}
-                name={f}
-                required
-                className="field"
-                placeholder={request.labels[f]}
-                aria-label={request.labels[f]}
-                value={values[f]}
-                onChange={set(f)}
-                {...inputProps[f]}
-              />
+            const errId = `${f}-error`
+            const a11y = {
+              'aria-label': request.labels[f],
+              'aria-invalid': invalid[f] || undefined,
+              'aria-describedby': invalid[f] ? errId : undefined,
+            }
+            return (
+              <div key={f}>
+                {f === 'service' ? (
+                  <select ref={ref} name={f} required className="field" value={values[f]} onChange={set(f)} {...a11y}>
+                    <option value="" disabled>
+                      {request.servicePlaceholder}
+                    </option>
+                    {request.services.map((s) => (
+                      <option key={s}>{s}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    ref={ref}
+                    name={f}
+                    required
+                    className="field"
+                    placeholder={request.labels[f]}
+                    value={values[f]}
+                    onChange={set(f)}
+                    {...inputProps[f]}
+                    {...a11y}
+                  />
+                )}
+                {invalid[f] && (
+                  <p id={errId} className="field-error">
+                    {request.errors[f]}
+                  </p>
+                )}
+              </div>
             )
           })}
-          <button className="btn btn-primary h-(--field-h) px-8" type="submit" disabled={status === 'sending'}>
-            {current.button}
+          <button className="btn btn-primary h-(--field-h) gap-2 px-8" type="submit" disabled={sending}>
+            {sending && <span className="spinner" aria-hidden="true" />}
+            {sending ? request.sendingLabel : current.button}
           </button>
         </form>
       )}
@@ -134,7 +171,7 @@ export function RequestService() {
           {isLast && (
             <p className="m-0 flex-1 basis-80 text-small text-muted">
               {request.consent}{' '}
-              <a href={request.privacyHref} className="underline">
+              <a href={request.privacyHref} className="link hit">
                 {request.privacyLabel}
               </a>
             </p>
@@ -143,7 +180,8 @@ export function RequestService() {
             <button
               type="button"
               onClick={back}
-              className="ml-auto cursor-pointer border-0 bg-transparent p-0 text-small text-muted underline"
+              disabled={sending}
+              className="link hit ml-auto cursor-pointer border-0 bg-transparent p-0 text-small text-muted"
             >
               {request.backLabel}
             </button>

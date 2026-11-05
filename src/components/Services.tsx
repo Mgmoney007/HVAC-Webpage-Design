@@ -3,8 +3,8 @@ import { Icon } from './Icon'
 
 export function Services() {
   return (
-    <section id={services.id} className="pt-14 pb-16 text-center max-md:py-10">
-      <div className="container-site">
+    <section id={services.id} className="py-section text-center">
+      <div data-reveal className="container-site">
         <h2 className="m-0 text-h2 leading-tight font-bold">{services.title}</h2>
         <div className="mt-4 mb-7.5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sub font-medium max-md:text-md">
           {services.checks.map((c) => (

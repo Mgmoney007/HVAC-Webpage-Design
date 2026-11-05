@@ -61,11 +61,53 @@
   --shadow-box: var(--shadow-card);
 
   --container-site: var(--container-max);
+
+  --spacing-section: var(--section-y);
+  --spacing-section-lg: var(--section-y-lg);
+  --spacing-tap: var(--tap-min);
+  --max-width-measure: var(--measure);
+  --shadow-box-hover: var(--shadow-card-hover);
+  --shadow-stuck: var(--shadow-header);
+  --default-transition-duration: var(--dur);
+  --default-transition-timing-function: var(--ease);
 }
 
 @layer base {
   html {
     font-size: 16px;
+    /* anchor jumps land below the sticky header */
+    scroll-padding-top: var(--nav-h);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* no single-word last lines in headings; softer rag in paragraphs */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+  /* One focus ring for everything: white halo + navy outline, visible on blue, white and red */
+  :focus-visible {
+    outline: var(--focus-w) solid var(--c-navy-ink);
+    outline-offset: var(--focus-gap);
+    box-shadow: 0 0 0 var(--focus-gap) var(--c-white);
+  }
+  /* on the dark/blue bands the outline flips to white over a navy halo */
+  .on-dark :focus-visible {
+    outline-color: var(--c-white);
+    box-shadow: 0 0 0 var(--focus-gap) var(--c-navy-ink);
+  }
+  /* white cards inside a dark band go back to the default ring */
+  .on-dark .on-light :focus-visible {
+    outline-color: var(--c-navy-ink);
+    box-shadow: 0 0 0 var(--focus-gap) var(--c-white);
   }
   body {
     margin: 0;
@@ -105,21 +147,95 @@
     text-decoration: none;
     border-radius: var(--radius-btn);
     padding: calc(var(--space-unit) * 2.5) calc(var(--space-unit) * 6);
+    min-height: var(--btn-min-h);
     cursor: pointer;
     border: 1px solid var(--c-red);
+    transition-property: background-color, border-color, color, box-shadow, transform, opacity;
+    transition-duration: var(--dur);
+    transition-timing-function: var(--ease);
+  }
+  .btn:active {
+    transform: translateY(var(--press-offset));
+  }
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: var(--disabled-opacity);
+    transform: none;
   }
   .btn-primary {
     background: var(--c-red);
     color: var(--c-white);
   }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--c-red-hover);
+    border-color: var(--c-red-hover);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-primary:active:not(:disabled) {
+    background: var(--c-red-active);
+    border-color: var(--c-red-active);
+    box-shadow: none;
+  }
   .btn-secondary {
     background: transparent;
     color: var(--c-text);
+  }
+  .btn-secondary:hover {
+    background: var(--c-red);
+    color: var(--c-white);
+  }
+  .btn-secondary:active {
+    background: var(--c-red-active);
+    border-color: var(--c-red-active);
+    color: var(--c-white);
   }
   .btn-white {
     background: var(--c-white);
     color: var(--c-text);
     border-color: var(--c-white);
+  }
+  .btn-white:hover {
+    background: transparent;
+    color: var(--c-white);
+  }
+  .btn-white:active {
+    background: var(--c-red-active);
+    color: var(--c-white);
+  }
+  /* Text links: red on hover, matching the reference's red link colour */
+  .link {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color var(--dur-fast) var(--ease), text-decoration-color var(--dur-fast) var(--ease);
+  }
+  .link:hover {
+    color: var(--c-link);
+  }
+  .link:active {
+    color: var(--c-red-active);
+  }
+  /* Grows the tap area of a small inline control to --tap-min without moving layout */
+  .hit {
+    position: relative;
+    display: inline-block;
+  }
+  .hit::after {
+    content: '';
+    position: absolute;
+    inset-block: min(0px, calc((100% - var(--tap-min)) / 2));
+    inset-inline: min(0px, calc((100% - var(--tap-min)) / 2));
+  }
+  /* Cards: shadow lifts on hover; border picks up the band blue when something inside has focus */
+  .card {
+    transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .card:focus-within {
+    border-color: var(--c-blue-band);
   }
   .field {
     height: var(--field-h);
@@ -132,10 +248,43 @@
     font: inherit;
     font-size: var(--fs-md);
     box-shadow: none;
+    transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
   }
-  /* only after the user has interacted, so empty fields are not red on load */
-  .field:user-invalid {
+  .field:hover {
+    border-color: var(--c-blue-band);
+  }
+  .field:focus-visible {
+    border-color: var(--c-navy-ink);
+  }
+  /* set by the form's own validation, after a submit attempt */
+  .field[aria-invalid='true'] {
     border-color: var(--c-red);
+  }
+  .field-error {
+    margin: calc(var(--space-unit) * 1) 0 0;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--c-red);
+    text-align: left;
+  }
+  /* Accordion rows (details/summary) */
+  .accordion > summary {
+    transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .accordion > summary:hover {
+    color: var(--c-link);
+  }
+  .accordion > summary:active {
+    background: var(--c-ice);
+  }
+  /* Spinner on the submit button while sending */
+  .spinner {
+    width: 1em;
+    height: 1em;
+    border: var(--spinner-w) solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    flex: none;
   }
   .field::placeholder {
     color: var(--c-placeholder);
@@ -149,5 +298,54 @@
     font-weight: var(--fw-bold);
     text-align: center;
     padding: calc(var(--space-unit) * 4);
+  }
+}
+
+/* ---- Motion. Everything below runs only for users who have not asked for reduced motion. ---- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Accordion open/close: animates the details content height where supported (Chromium 131+); elsewhere it opens instantly */
+  .accordion {
+    interpolate-size: allow-keywords;
+  }
+  .accordion::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size var(--dur-slow) var(--ease),
+      content-visibility var(--dur-slow) var(--ease) allow-discrete;
+  }
+  .accordion[open]::details-content {
+    block-size: auto;
+  }
+
+  /* Scroll reveal: html.reveal-ready is set by JS, so content stays visible without JS */
+  .reveal-ready [data-reveal] {
+    transition:
+      opacity var(--dur-reveal) var(--ease),
+      transform var(--dur-reveal) var(--ease);
+  }
+  .reveal-ready [data-reveal]:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(var(--reveal-rise));
+  }
+
+  .spinner {
+    animation: spin calc(var(--dur-reveal) * 2) linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
+
+/* Reduced motion: no transitions at all */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }

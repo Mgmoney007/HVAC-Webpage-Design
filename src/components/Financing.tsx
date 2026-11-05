@@ -12,12 +12,14 @@ export function Financing() {
       <Photo
         src={financing.photo.src}
         alt={financing.photo.alt}
+        srcSet={financing.photo.srcSet}
+        sizes={financing.photo.sizes}
         placeholder={financing.photoPlaceholder}
         /* stacked: centre on the subject; desktop: pin left so the open wall sits behind the copy */
         className="-z-10 h-60 w-full object-[80%_50%] md:h-80 lg:absolute lg:inset-0 lg:h-full lg:object-left max-lg:order-last"
       />
       <div className="flex items-center lg:min-h-(--financing-min-h) max-lg:order-first">
-        <div className="pl-container py-16 pr-6 lg:w-1/2 max-lg:py-12 max-md:px-6 max-md:py-9">
+        <div data-reveal className="pl-container py-section pr-6 lg:w-1/2 max-md:px-6">
           {/* Badge sits beside the heading so the section keeps its height and the photo crop holds */}
           <div className="mb-6 flex items-center gap-5 max-md:flex-col max-md:items-start max-md:gap-4">
             <img

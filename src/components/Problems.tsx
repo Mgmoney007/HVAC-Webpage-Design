@@ -3,8 +3,8 @@ import { Photo } from './Photo'
 
 export function Problems() {
   return (
-    <section className="bg-ice py-20 max-md:py-10">
-      <div className="container-site grid items-start gap-15 lg:grid-cols-2 lg:items-stretch max-lg:gap-8">
+    <section className="bg-ice py-section-lg">
+      <div data-reveal className="container-site grid items-start gap-15 lg:grid-cols-2 lg:items-stretch max-lg:gap-8">
         <Photo
           {...problems.photo}
           placeholder={problems.photoPlaceholder}

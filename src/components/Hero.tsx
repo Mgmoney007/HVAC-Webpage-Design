@@ -4,7 +4,7 @@ import { Photo } from './Photo'
 
 export function Hero() {
   return (
-    <section className="relative bg-brand text-paper">
+    <section className="on-dark relative bg-brand text-paper">
       <div className="grid md:min-h-(--hero-min-h) md:grid-cols-2">
         <div className="pl-container pt-20 pr-6 pb-22 max-md:px-6 max-md:py-9">
           <div className="lg:pl-(--hero-inset)">

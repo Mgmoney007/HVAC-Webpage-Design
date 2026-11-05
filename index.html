@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A&amp;C Quality Air | HVAC Installation, Repair and Maintenance in New Jersey</title>
+    <!-- DRAFT: keeps search engines from listing the site while it has placeholder content.
+         Remove this line, and the X-Robots-Tag header in vercel.json, at launch. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- Tab icon: the client logo (no separate favicon file yet) -->
+    <link rel="icon" type="image/webp" href="/images/ac-quality-air-logo-320.webp" />
+    <!-- The hero photo is the largest element on first load. React renders it, so without
+         this hint the browser only finds it after the script runs. Keep in step with hero.photo in site.ts. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-technician-homeowner.webp"
+      imagesrcset="/images/hero-technician-homeowner-800.webp 800w, /images/hero-technician-homeowner.webp 1600w"
+      imagesizes="(min-width: 768px) 50vw, 100vw"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <div id="root"></div>

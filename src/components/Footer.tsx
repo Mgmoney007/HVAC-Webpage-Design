@@ -2,10 +2,10 @@ import { footer } from '../content/site'
 
 export function Footer() {
   return (
-    <footer className="bg-footer pt-11 pb-12 text-body text-footer-ink">
+    <footer className="on-dark bg-footer pt-11 pb-12 text-body text-footer-ink">
       <div className="container-site">
         {footer.terms.map((t, i) => (
-          <p key={i} className="m-0 mb-4">
+          <p key={i} className="m-0 mb-4 max-w-measure">
             {t}
           </p>
         ))}
@@ -13,7 +13,7 @@ export function Footer() {
           <span>{footer.copyright}</span>
           <span>
             {footer.links.map((l) => (
-              <a key={l.label} href={l.href} className="underline">
+              <a key={l.label} href={l.href} className="link hit">
                 {l.label}
               </a>
             ))}

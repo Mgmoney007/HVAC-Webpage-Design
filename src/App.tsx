@@ -11,8 +11,10 @@ import { Reviews } from './components/Reviews'
 import { ServiceAreas } from './components/ServiceAreas'
 import { FinalCta } from './components/FinalCta'
 import { Footer } from './components/Footer'
+import { useReveal } from './useReveal'
 
 export default function App() {
+  useReveal()
   return (
     <>
       <PromoBar />
@@ -20,7 +22,7 @@ export default function App() {
       <main>
         <Hero />
         {/* Request card and offers share one blue band so the card can overlap the hero */}
-        <div className="relative flow-root bg-band">
+        <div className="on-dark relative flow-root bg-band">
           <RequestService />
           <Offers />
         </div>

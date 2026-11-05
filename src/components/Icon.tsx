@@ -31,6 +31,8 @@ const paths: Record<string, ReactNode> = {
     </>
   ),
   chevron: <path d="M6 9l6 6 6-6" />,
+  menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  close: <path d="M6 6l12 12M18 6L6 18" />,
   tag: (
     <>
       <path d="M3 12V4h8l10 10-8 8z" />

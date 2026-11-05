@@ -1,0 +1,6 @@
+# Crawling is allowed on purpose: search engines must be able to read the
+# "noindex" tag in index.html (and the X-Robots-Tag header in vercel.json),
+# which is what keeps this draft out of search results.
+# At launch, remove those two noindex settings; this file can stay as is.
+User-agent: *
+Allow: /

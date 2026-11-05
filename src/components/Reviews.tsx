@@ -10,8 +10,8 @@ function Stars({ className = '' }: { className?: string }) {
 
 export function Reviews() {
   return (
-    <section className="bg-ice py-16 max-md:py-10">
-      <div className="container-site grid items-start gap-8 lg:grid-cols-[0.9fr_2fr]">
+    <section className="bg-ice py-section">
+      <div data-reveal className="container-site grid items-start gap-8 lg:grid-cols-[0.9fr_2fr]">
         <div>
           <h2 className="m-0 text-h2 leading-tight font-bold">{reviews.title}</h2>
           <div className="mt-4 grid gap-1">
@@ -25,7 +25,7 @@ export function Reviews() {
           {reviews.items.map((r) => (
             <article
               key={r.name}
-              className="rounded-box border border-rule bg-paper p-5 shadow-box md:odd:last:col-span-2"
+              className="card rounded-box border border-rule bg-paper p-5 shadow-box md:odd:last:col-span-2"
             >
               <Stars className="mb-2 block text-h3" />
               <p className="m-0 text-md">{r.text}</p>
@@ -35,7 +35,7 @@ export function Reviews() {
                   href={reviews.sourceHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-note text-muted hover:text-accent"
+                  className="link hit text-note text-muted no-underline hover:underline"
                 >
                   {reviews.sourceLabel}
                 </a>

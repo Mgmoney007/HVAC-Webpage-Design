@@ -20,6 +20,9 @@ export const promo = {
 export const nav = {
   logo: {
     src: '/images/ac-quality-air-logo.webp',
+    // smaller copy for phones and 2x screens; sizes = rendered logo width (--logo-h x 480/222)
+    srcSet: '/images/ac-quality-air-logo-320.webp 320w, /images/ac-quality-air-logo.webp 480w',
+    sizes: '(max-width: 767px) 113px, 156px',
     name: 'A&C QUALITY AIR',
     tagline: 'HEATING • COOLING • NEW JERSEY',
   },
@@ -32,6 +35,10 @@ export const nav = {
   ],
   requestLabel: 'Request Service',
   requestHref: '#request',
+  // mobile menu button (screen-reader labels)
+  navLabel: 'Main',
+  menuLabel: 'Open menu',
+  closeLabel: 'Close menu',
   // YOUR CONTENT HERE: short line under the phone button (leave empty to hide)
   phoneNote: '',
 }
@@ -49,6 +56,8 @@ export const hero = {
   callLine: 'Call us to schedule your service today',
   photo: {
     src: '/images/hero-technician-homeowner.webp',
+    srcSet: '/images/hero-technician-homeowner-800.webp 800w, /images/hero-technician-homeowner.webp 1600w',
+    sizes: '(min-width: 768px) 50vw, 100vw',
     alt: 'A&C Quality Air technician reviewing a tablet with a homeowner beside a company van',
     position: '72% 50%',
   },
@@ -83,6 +92,16 @@ export const request = {
     email: 'Email Address',
   } as Record<RequestField, string>,
   backLabel: 'Back',
+  sendingLabel: 'Sending…',
+  // Inline validation messages, shown under a field after a submit attempt
+  errors: {
+    zip: 'Enter a 5-digit ZIP code.',
+    service: 'Choose the service you need.',
+    firstName: 'Enter your first name.',
+    lastName: 'Enter your last name.',
+    phone: 'Enter a phone number with area code.',
+    email: 'Enter a valid email address, like name@example.com.',
+  } as Record<RequestField, string>,
   // YOUR CONTENT HERE: URL that receives the form as a JSON POST (e.g. a form service or the client's CRM).
   // Until this is set, the last step does not send anything and shows notConnected instead of thanks.
   endpoint: '' as string,
@@ -150,6 +169,8 @@ export const problems = {
   title: 'Heating or Cooling Issues? We’ve Got You Covered.',
   photo: {
     src: '/images/technician-ac-repair.webp',
+    srcSet: '/images/technician-ac-repair-800.webp 800w, /images/technician-ac-repair.webp 1600w',
+    sizes: '(min-width: 1025px) 570px, 100vw',
     alt: 'Technician in a hard hat repairing the wiring of an outdoor air conditioning unit',
     position: '62% 50%',
   },
@@ -221,6 +242,8 @@ export const financing = {
   // Wide banner with open space on the left: used as a full-bleed background behind the copy on desktop
   photo: {
     src: '/images/homeowner-warranty.webp',
+    srcSet: '/images/homeowner-warranty-1100.webp 1100w, /images/homeowner-warranty.webp 2172w',
+    sizes: '100vw',
     alt: 'Homeowner on the phone reviewing her warranty paperwork',
     // crop is set in Financing.tsx: it differs between stacked and desktop layouts
   },
