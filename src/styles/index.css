@@ -1,0 +1,153 @@
+@import 'tailwindcss';
+@import './fonts.css';
+@import './tokens.css';
+
+/* Map design tokens onto Tailwind utilities. Values stay in tokens.css. */
+@theme inline {
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1025px;
+
+  --spacing: var(--space-unit);
+
+  --color-brand: var(--color-primaty);
+  --color-accent: var(--c-red);
+  --color-band: var(--c-blue-band);
+  --color-ink: var(--c-navy-ink);
+  --color-ice: var(--c-ice);
+  --color-mist: var(--c-grey-bg);
+  --color-paper: var(--c-white);
+  --color-copy: var(--c-text);
+  --color-muted: var(--c-placeholder);
+  --color-footer: var(--c-footer-bg);
+
+  /* names differ from the source vars on purpose: same name would be a self-reference */
+  --font-site: var(--font-sans);
+
+  --text-h1: var(--fs-h1);
+  --text-h2: var(--fs-h2);
+  --text-body: var(--fs-body);
+  --text-small: var(--fs-small);
+  --text-micro: var(--fs-micro);
+  --text-note: var(--fs-note);
+  --text-btn: var(--fs-btn);
+  --text-lead: var(--fs-lead);
+  --text-nav: var(--fs-nav);
+  --text-logo: var(--fs-logo);
+  --text-promo: var(--fs-promo);
+  --text-md: var(--fs-md);
+  --text-sub: var(--fs-sub);
+  --text-price: var(--fs-price);
+  --text-h3: var(--fs-h3);
+  --text-list: var(--fs-list);
+  --text-cta: var(--fs-cta);
+  --text-score: var(--fs-score);
+
+  --leading-relaxed: var(--lh-relaxed);
+
+  --color-soft: var(--c-text-soft);
+  --color-rule: var(--c-rule);
+  --color-footer-rule: var(--c-footer-rule);
+  --color-badge: var(--c-badge-bg);
+  --color-badge-ink: var(--c-badge-text);
+  --color-footer-ink: var(--c-footer-text);
+
+  --leading-tight: var(--lh-tight);
+  --leading-body: var(--lh-body);
+
+  --radius-field: var(--radius-input);
+  --radius-pill: var(--radius-btn);
+  --radius-box: var(--radius-card);
+
+  --shadow-box: var(--shadow-card);
+
+  --container-site: var(--container-max);
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--c-text);
+    background: var(--c-white);
+  }
+  a {
+    color: inherit;
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: calc(var(--space-unit) * 6);
+  }
+  /* Left edge of a full-bleed half that lines up with .container-site content */
+  .pl-container {
+    padding-left: max(
+      calc(var(--space-unit) * 6),
+      calc((100vw - var(--container-max)) / 2 + var(--space-unit) * 6)
+    );
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-btn);
+    line-height: var(--lh-btn);
+    text-decoration: none;
+    border-radius: var(--radius-btn);
+    padding: calc(var(--space-unit) * 2.5) calc(var(--space-unit) * 6);
+    cursor: pointer;
+    border: 1px solid var(--c-red);
+  }
+  .btn-primary {
+    background: var(--c-red);
+    color: var(--c-white);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--c-text);
+  }
+  .btn-white {
+    background: var(--c-white);
+    color: var(--c-text);
+    border-color: var(--c-white);
+  }
+  .field {
+    height: var(--field-h);
+    width: 100%;
+    padding: 0 calc(var(--space-unit) * 2.5);
+    background: var(--c-white);
+    color: var(--c-input-text);
+    border: 1px solid var(--c-navy-ink);
+    border-radius: var(--radius-input);
+    font: inherit;
+    font-size: var(--fs-md);
+    box-shadow: none;
+  }
+  /* only after the user has interacted, so empty fields are not red on load */
+  .field:user-invalid {
+    border-color: var(--c-red);
+  }
+  .field::placeholder {
+    color: var(--c-placeholder);
+  }
+  .ph-img {
+    background: linear-gradient(135deg, var(--ph-from), var(--ph-to));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ph-text);
+    font-weight: var(--fw-bold);
+    text-align: center;
+    padding: calc(var(--space-unit) * 4);
+  }
+}

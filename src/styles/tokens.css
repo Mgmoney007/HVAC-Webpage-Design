@@ -1,0 +1,121 @@
+/*
+ * Design tokens. Source: reference/tokens.json (light + dark).
+ * Extra sizes marked "scaffold" come from reference/scaffold.html, where the
+ * prototype uses sizes that tokens.json does not name.
+ */
+:root {
+  /* colors (tokens.json light) */
+  /* tokens.json says #243DAE; preview.png renders #25337A. Matched to preview by client decision. */
+  --color-primaty: #25337A;
+  --c-red: #E4002B;
+  --c-blue-band: #0058A3;
+  --c-navy-ink: #0B2744;
+  --c-ice: #F0F8FF;
+  --c-grey-bg: #F4F4F4;
+  --c-white: #FFFFFF;
+  --c-text: #231F20;
+  --c-placeholder: #5D5D5D;
+  --c-link: #E4002B;
+  --c-input-text: #000000; /* tokens.json loadBearingRules: input, select */
+  /* scaffold-only colors */
+  --c-text-soft: #444444;    /* bullets, blurbs */
+  --c-rule: #E5E5E5;         /* card and accordion dividers */
+  --c-footer-rule: #555555;
+  --c-badge-bg: #C8962E;     /* guarantee badge placeholder */
+  --c-badge-text: #3B2A07;
+  /* colors (tokens.json dark) */
+  --c-footer-bg: #231F20;
+  --c-guarantee-bg: var(--color-primaty);
+  --c-footer-text: #FFFFFF;
+
+  /* typography (tokens.json) */
+  --font-sans: Roboto, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --fs-h1: 48px;
+  --fs-h2: 36px;
+  --fs-body: 14px;
+  --fs-small: 12px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fw-black: 900; /* scaffold: logo */
+
+  /* typography (scaffold / preview.png) */
+  --fs-micro: 9px;   /* logo tagline */
+  --fs-note: 11px;   /* note under phone button */
+  --fs-btn: 15px;    /* preview.png; scaffold had 13px */
+  --fs-lead: 18px;   /* hero tick rows + call line */
+  --fs-nav: 18px;    /* nav links */
+  --fs-logo: 22px;
+  --fs-promo: 15px;
+  --fs-md: 15px;     /* card body copy, request intro */
+  --fs-sub: 20px;    /* offers subheading */
+  --fs-price: 60px;  /* offer headline */
+  --fs-h3: 20px;     /* column headings, checklist, accordion rows */
+  --fs-list: 16px;   /* service bullets */
+  --fs-cta: 24px;    /* final CTA band */
+  --fs-score: 40px;  /* rating number */
+  --lh-relaxed: 1.6;
+  --lh-tight: 1.12;
+  --lh-body: 1.45;
+  --lh-btn: 1.2;     /* gives the 40px button height seen in preview.png */
+  --ls-logo: 0.02em;
+  --ls-tagline: 0.08em;
+
+  /* spacing + shape (tokens.json) */
+  --space-unit: 4px;
+  --container-max: 1188px;
+  --radius-input: 3px;
+  --radius-btn: 40px;
+  --radius-card: 8px;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  /* layout (scaffold / preview.png) */
+  --nav-h: 97px;
+  --logo-h: 72px; /* preview.png logo is ~171x67 at 1440 */
+  --hero-min-h: 589px;
+  --hero-h1-max: 490px;
+  --hero-inset: 30px; /* preview.png: hero copy sits 30px right of the container edge */
+  --request-max: 912px;
+  --request-overlap: 47px;
+  --field-h: 40px;
+  --offer-min-h: 274px;
+  --problems-photo-h: 458px;
+  --financing-min-h: 515px;
+  --badge-size: 141px;
+  --badge-sm: 112px; /* badge beside the guarantee heading */
+  --map-h: 240px; /* taller than the reference's 180px: the client map is portrait */
+  --map-max: 360px;
+  --icon-md: 24px;
+  --icon-sm: 20px;
+  --icon: 36px;
+  --ph-from: #cfd8e8; /* scaffold: placeholder image gradient */
+  --ph-to: #9fb2d4;
+  --ph-text: #34466e;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --fs-h1: 40px; /* hero column is half width on tablet; 48px wraps to 5 lines */
+    --fs-price: 44px; /* three offer cards are ~230px wide on tablet */
+    --problems-photo-h: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --fs-h1: 32px;
+    --fs-logo: 18px;
+    --logo-h: 52px;
+    --nav-h: 72px;
+    --fs-sub: 16px;
+    --fs-price: 44px;
+    --request-overlap: 40px;
+    --fs-h3: 17px;
+    --fs-cta: 20px;
+    --problems-photo-h: 280px;
+    --financing-min-h: 0px;
+    --fs-h2: 26px;
+    --fs-lead: 15px;
+    --hero-min-h: 240px;
+  }
+}
