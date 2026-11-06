@@ -31,3 +31,14 @@ preloaded in `index.html`). Same ffmpeg settings, smaller width:
 ```
 ffmpeg -i public/images/hero-technician-homeowner.webp -vf "scale=800:-2" -c:v libwebp -quality 80 -compression_level 6 public/images/hero-technician-homeowner-800.webp
 ```
+
+## Service icons
+
+Client artwork, 500x500 with a transparent background. The page shows them at 36px
+(`--icon`), so it loads a 108px copy (3x) and keeps the 500px file for zoomed-in screens:
+
+```
+ffmpeg -i public/images/maintenance-icon.webp -vf "scale=108:108:flags=lanczos" -c:v libwebp -quality 90 public/images/maintenance-icon-108.webp
+```
+
+Same for ac-install-icon, heater-repair-icon and heater-install-icon.

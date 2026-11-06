@@ -237,6 +237,19 @@
   .card:focus-within {
     border-color: var(--c-blue-band);
   }
+  /* Coupon artwork links: drop-shadow follows the image's own rounded edge (its corners are
+     transparent), and the whole coupon nudges down when pressed, like a button */
+  .coupon {
+    display: block;
+    border-radius: var(--radius-box);
+    transition: filter var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .coupon:hover {
+    filter: drop-shadow(var(--shadow-coupon-hover));
+  }
+  .coupon:active {
+    transform: translateY(var(--press-offset));
+  }
   .field {
     height: var(--field-h);
     width: 100%;

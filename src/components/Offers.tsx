@@ -1,4 +1,4 @@
-import { offers } from '../content/site'
+import { nav, offers } from '../content/site'
 import { Icon } from './Icon'
 
 export function Offers() {
@@ -8,7 +8,23 @@ export function Offers() {
         <h2 className="m-0 text-h2 leading-tight font-bold">{offers.title}</h2>
         <p className="m-0 mt-1 mb-7.5 text-sub font-bold">{offers.sub}</p>
         <div className="grid gap-10 md:grid-cols-3 md:max-lg:gap-4">
-          {offers.items.map((o, i) => (
+          {offers.items.map((o, i) =>
+            o.image ? (
+              <article key={i} className="mx-auto w-full max-w-(--offer-img-max)">
+                {/* The button is drawn into the artwork, so the whole coupon links to the form */}
+                <a href={nav.requestHref} className="coupon">
+                  <img
+                    src={o.image}
+                    alt={`${o.cta} ${o.big}: ${o.what}. ${offers.expiresLabel} ${o.expires}.`}
+                    width={1000}
+                    height={1000}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-auto w-full"
+                  />
+                </a>
+              </article>
+            ) : (
             <article
               key={i}
               className="card relative flex min-h-(--offer-min-h) flex-col rounded-box border border-dashed border-muted/50 bg-paper px-4 pt-12 pb-4 text-copy shadow-box"
@@ -22,7 +38,8 @@ export function Offers() {
                 <span>{o.expires}</span>
               </div>
             </article>
-          ))}
+            ),
+          )}
         </div>
       </div>
     </section>

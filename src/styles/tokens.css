@@ -79,6 +79,7 @@
   --request-overlap: 47px;
   --field-h: 40px;
   --offer-min-h: 274px;
+  --offer-img-max: 500px; /* coupon artwork is 1000px, so this keeps it sharp on 2x screens */
   --problems-photo-h: 458px;
   --financing-min-h: 515px;
   --badge-size: 141px;
@@ -101,6 +102,7 @@
   --c-red-hover: color-mix(in srgb, var(--c-red), var(--c-text) 15%);
   --c-red-active: color-mix(in srgb, var(--c-red), var(--c-text) 28%);
   --shadow-card-hover: 0 6px 18px rgba(0, 0, 0, 0.18);
+  --shadow-coupon-hover: 0 6px 12px rgba(0, 0, 0, 0.35); /* drop-shadow form; stronger to read on the blue band */
   --shadow-header: 0 2px 8px rgba(0, 0, 0, 0.12);
   --focus-w: 3px;        /* navy outline */
   --focus-gap: 2px;      /* white halo between element and outline */

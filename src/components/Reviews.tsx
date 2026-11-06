@@ -20,22 +20,23 @@ export function Reviews() {
             <span className="text-btn text-muted">{reviews.rating.count}</span>
           </div>
         </div>
-        {/* Two cards per row to match the reference card width; an odd last card spans the row */}
-        <div className="grid items-start gap-4 md:grid-cols-2">
+        {/* Two cards per row to match the reference card width; an odd last card spans the row.
+            Cards in a row stretch to the same height, and the name sits at the bottom of each. */}
+        <div className="grid items-stretch gap-4 md:grid-cols-2">
           {reviews.items.map((r) => (
             <article
               key={r.name}
-              className="card rounded-box border border-rule bg-paper p-5 shadow-box md:odd:last:col-span-2"
+              className="card flex flex-col rounded-box border border-rule bg-paper p-5 shadow-box md:odd:last:col-span-2"
             >
               <Stars className="mb-2 block text-h3" />
-              <p className="m-0 text-md">{r.text}</p>
+              <p className="m-0 flex-1 text-md">{r.text}</p>
               <div className="mt-3 text-h3 font-bold">{r.name}</div>
               {reviews.sourceHref ? (
                 <a
                   href={reviews.sourceHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link hit text-note text-muted no-underline hover:underline"
+                  className="link hit self-start text-note text-muted no-underline hover:underline"
                 >
                   {reviews.sourceLabel}
                 </a>

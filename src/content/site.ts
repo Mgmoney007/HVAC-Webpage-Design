@@ -123,11 +123,13 @@ export const offers = {
   title: 'Limited Time Offers in New Jersey',
   sub: 'Simply share or mention these offers to your A&C Quality Air team member and save on your service!',
   // Replace with: real, client-approved offers only. Do not publish placeholder prices.
+  // image: optional client coupon artwork (1000x1000, shown at up to 500px so it stays sharp on 2x screens). When set it replaces the text card;
+  // the text fields stay as the alt text, so the image and the fields must say the same thing.
   items: [
-    { big: '$60 Off', what: 'Heating and Cooling Repairs', cta: 'Book Now!', expires: '12/01/2026' },
-    { big: '$25', what: 'Seasonal Maintenance', cta: 'Schedule Today!', expires: '12/01/2026' },
-    { big: 'Save Now, Pay Later', what: '0% Financing on new heating and cooling units **', cta: 'Book Now!', expires: '12/01/2026' },
-  ],
+    { big: '$60 Off', what: 'Heating and Cooling Repairs', cta: 'Book Now!', expires: '12/01/2026', image: '/images/60off.webp' },
+    { big: '$25', what: 'Seasonal Maintenance', cta: 'Schedule Today!', expires: '12/01/2026', image: '/images/25off.webp' },
+    { big: 'Save Now, Pay Later', what: '0% Financing on new heating and cooling systems', cta: 'Book Now!', expires: '12/01/2026', image: '/images/savenow.webp' },
+  ] as { big: string; what: string; cta: string; expires: string; image?: string }[],
   expiresLabel: 'Expires',
 }
 
@@ -135,34 +137,38 @@ export type ServiceIcon = 'ac-repair' | 'ac-install' | 'heat-repair' | 'heat-ins
 
 export const services = {
   id: 'services',
-  title: 'Our Available HVAC Services in New Jersey',
-  checks: [
-    'Installation, repair and maintenance',
-    // YOUR CONTENT HERE: guarantee claim approved by client
-    'Guaranteed Satisfaction',
-  ],
+  title: 'Complete Heating & Cooling Services Across New Jersey',
   cols: [
     {
       icon: 'ac-repair',
+      image: '/images/maintenance-icon.webp',
+      imageSrcSet: '/images/maintenance-icon-108.webp 108w, /images/maintenance-icon.webp 500w',
       title: 'A/C Repair & Maintenance',
       items: ['Air conditioner repair service', 'Inconsistent cooling diagnosed', 'Tune-ups for a longer lifespan'],
     },
     {
       icon: 'ac-install',
+      image: '/images/ac-install-icon.webp',
+      imageSrcSet: '/images/ac-install-icon-108.webp 108w, /images/ac-install-icon.webp 500w',
       title: 'A/C Installation',
       items: ['Replace your aging system', 'Air conditioner installation', 'Expert installation'],
     },
     {
       icon: 'heat-repair',
+      image: '/images/heater-repair-icon.webp',
+      imageSrcSet: '/images/heater-repair-icon-108.webp 108w, /images/heater-repair-icon.webp 500w',
       title: 'Heater Repair & Maintenance',
       items: ['Furnace and boiler service', 'Steam boiler repair', 'Heating tune-ups'],
     },
     {
       icon: 'heat-install',
+      image: '/images/heater-install-icon.webp',
+      imageSrcSet: '/images/heater-install-icon-108.webp 108w, /images/heater-install-icon.webp 500w',
       title: 'Heater Installation',
       items: ['Furnace installation', 'Boiler installation service', 'Water heater installation and replacement'],
     },
-  ] as { icon: ServiceIcon; title: string; items: string[] }[],
+  // image: optional client icon artwork; when set it replaces the line icon. Decorative (the title says what it is).
+  ] as { icon: ServiceIcon; image?: string; imageSrcSet?: string; title: string; items: string[] }[],
 }
 
 export const problems = {
@@ -281,7 +287,7 @@ export const reviews = {
     },
     {
       name: 'Andrew Passaro',
-      text: 'AC Quality Air is the one. My AC unit recently went out, and the level of service I received was absolutely amazing from start to finish. They arrived on time, I will absolutely be using them for all my future HVAC needs because Cesar was the best.',
+      text: 'AC Quality Air is the one. My AC unit recently went out, and the level of service I received was absolutely amazing from start to finish. They arrived on time, I will absolutely be using them for all my future HVAC needs.',
     },
     {
       name: 'Kelly Lopez',
